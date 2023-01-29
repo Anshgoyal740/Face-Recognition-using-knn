@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <style>
+      body {
+        background-color: rgb(18, 115, 120);
+      }
+      .form-submit-button {
+        background: #b9dfff;
+        color: #fff;
+        border: 1px solid #eee;
+        border-radius: 20px;
+        box-shadow: 5px 5px 5px #eee;
+        text-shadow: none;
+      }
+
+      .form-submit-button:hover {
+        background: #016abc;
+        color: #fff;
+        border: 1px solid #eee;
+        border-radius: 20px;
+        box-shadow: 5px 5px 5px #eee;
+        text-shadow: none;
+      }
+      .box {
+        width: 300px;
+        padding: 30px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.4);
+        text-align: center;
+      }
+      .logout-form {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50px;
+        height: 50px;
+      }
+      .logout-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    </style>
+    <script type="text/javascript">
+      function preventBack() {
+          window.history.forward(); 
+      }    
+      setTimeout("preventBack()", 0);    
+      window.onunload = function () { null };
+    </script>
+  </head>
+  <body>
+    <br />
+    <h1 align="center">Welcome {{name}}</h1>
+
+    <h1 align="center">Upload a file</h1>
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <input type="file" name="myfiles" multiple />
+      <input type="submit" value="Upload" />
+    </form>
+    <p>You uploaded the following files:</p>
+    <ul>
+      {% for file_name in file_names %}
+      <li>
+        <a href="{{file_name}}" style="color: white">{{file_name}}</a>
+        <a href="{{url_for('delete', filename=file_name)}}">Delete</a>
+      </li>
+      {% endfor %}
+    </ul>
+    <!--<input type="button" onclick="location.href='/login'" value="Logout">-->
+     <input
+      type="image"
+      src="/static/img/images.jpeg"
+      alt="Logout"
+      class="logout-form"
+      onclick="window.location.href='/login'"
+    />
+  </body>
+</html>
